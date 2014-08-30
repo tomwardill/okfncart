@@ -27,7 +27,7 @@ class Cart(object):
                 'quantity': quantity
             }
 
-    def CalculateTotal(self, promotions=None):
+    def CalculateTotal(self, promotions=[]):
         """Calculate the total price and quantities of the cart
 
         :param promotions: List of promotions that can be applied
@@ -43,5 +43,10 @@ class Cart(object):
             total_product_price = price * values['quantity']
             total['total_price'] += total_product_price
             total['products'][product] = values['quantity']
+
+
+        # apply the promotions
+        for promotion in promotions:
+            promotion.check_promotion(total)
 
         return total

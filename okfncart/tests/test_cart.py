@@ -1,6 +1,7 @@
 import unittest
 
 from okfncart.cart import Cart
+from okfncart.promotions import BuyOneGetOneFreePromotion
 
 class TestCart(unittest.TestCase):
 
@@ -147,3 +148,17 @@ class TestCart(unittest.TestCase):
                 quantity,
                 total['products'][product]
             )
+
+    def test_calculate_total_with_promotions(self):
+
+        promotions = [
+            BuyOneGetOneFreePromotion('test_product_1')
+        ]
+
+        self.cart.AddToCart('test_product_1')
+        total = self.cart.CalculateTotal(promotions=promotions)
+
+        self.assertEqual(
+            2,
+            total['products']['test_product_1']
+        )
