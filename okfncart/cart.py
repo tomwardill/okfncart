@@ -32,6 +32,8 @@ class Cart(object):
 
         :param promotions: List of promotions that can be applied
         :type promotions: list
+
+        :returns: dict containing `total_price` and a subdict of `products` including quantities
         """
 
         total = {

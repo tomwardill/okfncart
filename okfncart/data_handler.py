@@ -13,7 +13,7 @@ class DataHandler(object):
         :param target_file: Location of an alternative data file
         :type target_file: str
 
-        :returns dict -- the product data
+        :returns: dict of the product data
         """
 
         product_data = {}
