@@ -1,6 +1,6 @@
 import unittest
 
-from data_handler import DataHandler
+from okfncart.data_handler import DataHandler
 
 class TestDataHandler(unittest.TestCase):
 

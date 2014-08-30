@@ -1,6 +1,6 @@
 import unittest
 
-from cart import Cart
+from okfncart.cart import Cart
 
 class TestCart(unittest.TestCase):
 
