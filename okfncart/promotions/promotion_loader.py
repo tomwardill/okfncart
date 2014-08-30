@@ -31,15 +31,15 @@ class PromotionLoader(object):
                 continue
 
             promotion_name = possible_promotion[:-3]
-            promotion = imp.load_module(
+            promotion = imp.load_source(
                 promotion_name,
                 os.path.abspath(
                     os.path.join(
                         self.default_promotion_directory,
-                        possible_promotion
+                        possible_promotion,
                     ))
             )
-
-            promotions.append(promotion)
+            target = getattr(promotion, promotion_name)
+            promotions.append(target())
 
         return promotions
