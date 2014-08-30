@@ -81,7 +81,7 @@ class DiscountOneProductWithAnother(BasePromotion):
     discount_product = None
     discount_amount = 0
 
-    def __init__(self, buy_product, discount_product, discount_amount):
+    def __init__(self, buy_product=None, discount_product=None, discount_amount=None):
         """Initalise the promotion
 
         :param buy_product: The product that must be bought
