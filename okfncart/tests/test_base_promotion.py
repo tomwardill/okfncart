@@ -60,6 +60,21 @@ class TestBuyOneGetOneFreePromotion(unittest.TestCase):
             fixture['products']['test_bogof_2']
         )
 
+    def test_recieve_multiple(self):
+        promotion = BuyOneGetOneFreePromotion('test_bogof_1')
+        fixture = {
+            'products': {
+                'test_bogof_1': 5
+            }
+        }
+
+        promotion.check_promotion(fixture)
+
+        self.assertEqual(
+            10,
+            fixture['products']['test_bogof_1']
+        )
+
 class BuyTwoGetOneFreePromotion(unittest.TestCase):
 
     def test_does_nothing_if_less_than_two(self):

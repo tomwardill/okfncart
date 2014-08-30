@@ -14,7 +14,7 @@ class BasePromotion(object):
 
 class BuyOneGetOneFreePromotion(BasePromotion):
     """Implementation of a Buy One Get On Free promotion
-    Adds 1 to the quanitity of `target_object`
+    Adds doubles the quantity of `target_object`
 
     Can either pass the target_object at init time,
     or inherit the class and set target_object at class level
@@ -40,7 +40,9 @@ class BuyOneGetOneFreePromotion(BasePromotion):
         """
 
         if self.target_object in current_total['products']:
-            current_total['products'][self.target_object] += 1
+            current_quantity = current_total['products'][self.target_object]
+            current_quantity = current_quantity * 2
+            current_total['products'][self.target_object] = current_quantity
 
 class BuyTwoGetOneFree(BuyOneGetOneFreePromotion):
     """Implementation of buy two, get one free promotion
