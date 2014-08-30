@@ -41,3 +41,29 @@ class BuyOneGetOneFreePromotion(BasePromotion):
 
         if self.target_object in current_total['products']:
             current_total['products'][self.target_object] += 1
+
+class BuyTwoGetOneFree(BuyOneGetOneFreePromotion):
+    """Implementation of buy two, get one free promotion
+    Basic Operation:
+    Adds 1 to the quantity of `target_object` if the quantity is 2.
+    Complex Operation:
+    Adds appropriate quanities if multiples of 2 are bought
+    (buy 4, get 6)
+    """
+
+    def check_promotion(self, current_total):
+        """Basic Operation:
+        Adds 1 to the quantity of `target_object` if the quantity is 2.
+        Complex Operation:
+        Adds appropriate quanities if multiples of 2 are bought
+        (buy 4, get 6)
+        """
+
+        if self.target_object in current_total['products']:
+            current_quantity = current_total['products'][self.target_object]
+
+            # we explicitly want int maths here
+            # as we want number of times 2 goes into the total,
+            # as an int
+            number_to_add = int(current_quantity) / 2
+            current_total['products'][self.target_object] += number_to_add

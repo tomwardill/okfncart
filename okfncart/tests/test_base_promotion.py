@@ -2,7 +2,8 @@ import unittest
 
 from okfncart.promotions import (
     BasePromotion,
-    BuyOneGetOneFreePromotion
+    BuyOneGetOneFreePromotion,
+    BuyTwoGetOneFree
 )
 
 
@@ -57,4 +58,70 @@ class TestBuyOneGetOneFreePromotion(unittest.TestCase):
         self.assertEqual(
             10,
             fixture['products']['test_bogof_2']
+        )
+
+class BuyTwoGetOneFreePromotion(unittest.TestCase):
+
+    def test_does_nothing_if_less_than_two(self):
+
+        promotion = BuyTwoGetOneFree('test_btgof_1')
+        fixture = {
+            'products': {
+                'test_btgof_1': 1
+            }
+        }
+
+        promotion.check_promotion(fixture)
+
+        self.assertEqual(
+            1,
+            fixture['products']['test_btgof_1']
+        )
+
+    def test_adds_one_if_buy_two(self):
+
+        promotion = BuyTwoGetOneFree('test_btgof_2')
+        fixture = {
+            'products': {
+                'test_btgof_2': 2
+            }
+        }
+
+        promotion.check_promotion(fixture)
+
+        self.assertEqual(
+            3,
+            fixture['products']['test_btgof_2']
+        )
+
+    def test_adds_two_if_buy_four(self):
+
+        promotion = BuyTwoGetOneFree('test_btgof_2')
+        fixture = {
+            'products': {
+                'test_btgof_2': 4
+            }
+        }
+
+        promotion.check_promotion(fixture)
+
+        self.assertEqual(
+            6,
+            fixture['products']['test_btgof_2']
+        )
+
+    def test_adds_two_if_buy_five(self):
+
+        promotion = BuyTwoGetOneFree('test_btgof_2')
+        fixture = {
+            'products': {
+                'test_btgof_2': 5
+            }
+        }
+
+        promotion.check_promotion(fixture)
+
+        self.assertEqual(
+            7,
+            fixture['products']['test_btgof_2']
         )
