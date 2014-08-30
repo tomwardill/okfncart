@@ -12,7 +12,7 @@ class TestDataHandler(unittest.TestCase):
 
         # check we've loaded the expected amount of data
         self.assertEqual(
-            4,
+            5,
             len(product_data.keys())
         )
 
