@@ -88,3 +88,62 @@ class TestCart(unittest.TestCase):
             4,
             self.cart.current_products['test_product_2']['quantity']
         )
+
+    def test_calculate_total(self):
+        self.cart.AddToCart('test_product_1')
+
+        total = self.cart.CalculateTotal()
+
+        self.assertTrue('total_price' in total)
+        self.assertEqual(
+            0.1,
+            total['total_price']
+        )
+
+    def test_calculate_total_product_list(self):
+        self.cart.AddToCart('test_product_1')
+        total = self.cart.CalculateTotal()
+
+        self.assertTrue('products' in total)
+        self.assertTrue('test_product_1' in total['products'])
+        self.assertEqual(
+            1,
+            total['products']['test_product_1']
+        )
+
+    def test_calculate_total_multiple_products(self):
+        for product in self.fixture.iterkeys():
+            self.cart.AddToCart(product)
+
+        total = self.cart.CalculateTotal()
+
+        for product in self.fixture.iterkeys():
+            self.assertTrue(product in total['products'])
+            self.assertEqual(
+                1,
+                total['products'][product]
+            )
+
+    def test_calculate_total_quantity(self):
+        self.cart.AddToCart('test_product_1', quantity=4)
+        total = self.cart.CalculateTotal()
+
+        self.assertTrue('products' in total)
+        self.assertTrue('test_product_1' in total['products'])
+        self.assertEqual(
+            4,
+            total['products']['test_product_1']
+        )
+
+    def test_calculate_total_multiple_products(self):
+        for quantity, product in enumerate(self.fixture.iterkeys()):
+            self.cart.AddToCart(product, quantity=quantity)
+
+        total = self.cart.CalculateTotal()
+
+        for quantity, product in enumerate(self.fixture.iterkeys()):
+            self.assertTrue(product in total['products'])
+            self.assertEqual(
+                quantity,
+                total['products'][product]
+            )

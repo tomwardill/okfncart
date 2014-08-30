@@ -26,3 +26,22 @@ class Cart(object):
             self.current_products[product] = {
                 'quantity': quantity
             }
+
+    def CalculateTotal(self, promotions=None):
+        """Calculate the total price and quantities of the cart
+
+        :param promotions: List of promotions that can be applied
+        :type promotions: list
+        """
+
+        total = {
+            'total_price': 0,
+            'products': {}
+        }
+        for product, values in self.current_products.iteritems():
+            price = self.product_data[product]
+            total_product_price = price * values['quantity']
+            total['total_price'] += total_product_price
+            total['products'][product] = values['quantity']
+
+        return total
