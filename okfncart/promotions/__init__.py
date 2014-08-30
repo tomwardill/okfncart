@@ -92,9 +92,12 @@ class DiscountOneProductWithAnother(BasePromotion):
         :type discount_amount: float
         """
 
-        self.buy_product = buy_product
-        self.discount_product = discount_product
-        self.discount_amount = discount_amount
+        if buy_product:
+            self.buy_product = buy_product
+        if discount_product:
+            self.discount_product = discount_product
+        if discount_amount:
+            self.discount_amount = discount_amount
 
     def check_promotion(self, current_total, product_data):
         """Discount by the given amount if one product is bought
