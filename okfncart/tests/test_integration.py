@@ -36,3 +36,29 @@ class TestIntegration(unittest.TestCase):
             expected_total,
             total
         )
+
+    def test_full_integration_with_promotions(self):
+
+        expected_total = {
+            'products': {
+                'ice cream': 2,
+                'mars bar': 1,
+                'snickers bar': 1,
+                'strawberries': 3
+            },
+            'total_price': 8.9
+        }
+
+        self.cart.AddToCart('ice cream', quantity=1)
+        self.cart.AddToCart('strawberries', quantity=2)
+        self.cart.AddToCart('mars bar')
+        self.cart.AddToCart('snickers bar')
+
+        total = self.cart.CalculateTotal(
+            promotions=self.promotions
+        )
+
+        self.assertEqual(
+            expected_total,
+            total
+        )
