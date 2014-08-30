@@ -1,27 +1,28 @@
-import csv
+
 
 class Cart(object):
 
-    default_target_file = './data.csv'
-    product_data = {}
+    def __init__(self, product_data):
+        """Set up a Cart object with the given data
 
-    def LoadProductData(self, target_file=None):
-        """Load the product data from a csv file.
-        Will use a default file location of './data'
-        if none specified
+        :param product_data: Product data to use in cart
+        :type product_data: dict
+        """
+        self.product_data = product_data
+        self.current_products = {}
 
-        :param target_file: Location of an alternative data file
-        :type target_file: str
+    def AddToCart(self, product, quantity=1):
+        """Add a product to the cart
 
+        :param product: Name of product to add to cart
+        :type product: str
+        :param quantity: Quantity of product to add to cart
+        :type quantity: int
         """
 
-        # load the default if not otherwise specified
-        if not target_file:
-            target_file = self.default_target_file
-
-        # load the data, assume it's valid
-        # convert second parameter to float for maths
-        with open(target_file) as csv_file:
-            reader = csv.reader(csv_file)
-            for row in reader:
-                self.product_data[row[0]] = float(row[1])
+        if product in self.current_products:
+            self.current_products[product]['quantity'] += quantity
+        else:
+            self.current_products[product] = {
+                'quantity': quantity
+            }
