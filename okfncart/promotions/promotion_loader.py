@@ -22,7 +22,11 @@ class PromotionLoader(object):
 
         promotions = []
         possible_promotions = os.listdir(self.promotion_folder)
+
+        # Iterate the files in the target dir
         for possible_promotion in possible_promotions:
+
+            # Ignore certain files
             if '.pyc' in possible_promotion:
                 continue
             if possible_promotion in self.ignore_files:
@@ -30,7 +34,10 @@ class PromotionLoader(object):
             if not possible_promotion.endswith('.py'):
                 continue
 
+            # trim the .py from the filename
             promotion_name = possible_promotion[:-3]
+
+            # Load the module
             promotion = imp.load_source(
                 promotion_name,
                 os.path.abspath(
@@ -39,7 +46,11 @@ class PromotionLoader(object):
                         possible_promotion,
                     ))
             )
+
+            # Use the name of the file to get the right class
             target = getattr(promotion, promotion_name)
+
+            # Instantiate the class and add it to the list
             promotions.append(target())
 
         return promotions
