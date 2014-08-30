@@ -19,7 +19,7 @@ class TestBasePromotion(unittest.TestCase):
 
         with self.assertRaises(NotImplementedError):
             promotion = BasePromotion()
-            promotion.check_promotion({})
+            promotion.check_promotion({}, {})
 
 class TestBuyOneGetOneFreePromotion(unittest.TestCase):
 
@@ -32,7 +32,7 @@ class TestBuyOneGetOneFreePromotion(unittest.TestCase):
             }
         }
 
-        promotion.check_promotion(fixture)
+        promotion.check_promotion(fixture, {})
 
         self.assertEqual(
             2,
@@ -49,7 +49,7 @@ class TestBuyOneGetOneFreePromotion(unittest.TestCase):
             }
         }
 
-        promotion.check_promotion(fixture)
+        promotion.check_promotion(fixture, {})
 
         self.assertEqual(
             2,
@@ -68,7 +68,7 @@ class TestBuyOneGetOneFreePromotion(unittest.TestCase):
             }
         }
 
-        promotion.check_promotion(fixture)
+        promotion.check_promotion(fixture, {})
 
         self.assertEqual(
             10,
@@ -86,7 +86,7 @@ class BuyTwoGetOneFreePromotion(unittest.TestCase):
             }
         }
 
-        promotion.check_promotion(fixture)
+        promotion.check_promotion(fixture, {})
 
         self.assertEqual(
             1,
@@ -102,7 +102,7 @@ class BuyTwoGetOneFreePromotion(unittest.TestCase):
             }
         }
 
-        promotion.check_promotion(fixture)
+        promotion.check_promotion(fixture, {})
 
         self.assertEqual(
             3,
@@ -118,7 +118,7 @@ class BuyTwoGetOneFreePromotion(unittest.TestCase):
             }
         }
 
-        promotion.check_promotion(fixture)
+        promotion.check_promotion(fixture, {})
 
         self.assertEqual(
             6,
@@ -134,7 +134,7 @@ class BuyTwoGetOneFreePromotion(unittest.TestCase):
             }
         }
 
-        promotion.check_promotion(fixture)
+        promotion.check_promotion(fixture, {})
 
         self.assertEqual(
             7,

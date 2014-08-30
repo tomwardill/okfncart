@@ -47,6 +47,6 @@ class Cart(object):
 
         # apply the promotions
         for promotion in promotions:
-            promotion.check_promotion(total)
+            promotion.check_promotion(total, self.product_data)
 
         return total

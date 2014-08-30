@@ -1,11 +1,13 @@
 class BasePromotion(object):
 
-    def check_promotion(self, current_total):
+    def check_promotion(self, current_total, product_data):
         """Base method for promotions to calculate with.
         Should be implemented in the promotion class
 
         :param current_total: The current basket state
         :type current_total: dict
+        :param product_data: The product information (prices, etc)
+        :type: product_data: dict
         """
 
         raise NotImplementedError(
@@ -31,7 +33,7 @@ class BuyOneGetOneFreePromotion(BasePromotion):
         if target_object:
             self.target_object = target_object
 
-    def check_promotion(self, current_total):
+    def check_promotion(self, current_total, product_data):
         """Add 1 to the quantity of the target
         without increasing the base price
 
@@ -53,7 +55,7 @@ class BuyTwoGetOneFree(BuyOneGetOneFreePromotion):
     (buy 4, get 6)
     """
 
-    def check_promotion(self, current_total):
+    def check_promotion(self, current_total, product_data):
         """Basic Operation:
         Adds 1 to the quantity of `target_object` if the quantity is 2.
         Complex Operation:
@@ -69,3 +71,17 @@ class BuyTwoGetOneFree(BuyOneGetOneFreePromotion):
             # as an int
             number_to_add = int(current_quantity) / 2
             current_total['products'][self.target_object] += number_to_add
+
+class DiscountOneProductWithAnother(BasePromotion):
+
+    buy_product = None
+    discount_product = None
+    discount_amount = 0
+
+    def __init__(self, buy_product, discount_product, discount_amount):
+        self.buy_product = buy_product
+        self.discount_product = discount_product
+        self.discount_amount = discount_amount
+
+    def check_promotion(self, current_total,product_data):
+        pass
