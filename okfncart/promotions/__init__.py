@@ -73,15 +73,46 @@ class BuyTwoGetOneFree(BuyOneGetOneFreePromotion):
             current_total['products'][self.target_object] += number_to_add
 
 class DiscountOneProductWithAnother(BasePromotion):
+    """Implementation of getting discount on one product
+    if another is bought at the same time
+    """
 
     buy_product = None
     discount_product = None
     discount_amount = 0
 
     def __init__(self, buy_product, discount_product, discount_amount):
+        """Initalise the promotion
+
+        :param buy_product: The product that must be bought
+        :type buy_product: str
+        :param discount_product: The product that will be discounted if also bought
+        :type discount_product: str
+        :param discount_amount: The amount to discount by
+        :type discount_amount: float
+        """
+
         self.buy_product = buy_product
         self.discount_product = discount_product
         self.discount_amount = discount_amount
 
-    def check_promotion(self, current_total,product_data):
-        pass
+    def check_promotion(self, current_total, product_data):
+        """Discount by the given amount if one product is bought
+        at the same time as another
+        """
+
+        if (self.buy_product in current_total['products']
+            and self.discount_product in current_total['products']):
+
+            # get the price of the discount_product
+            normal_price = product_data[self.discount_product]
+            quantity = current_total['products'][self.discount_product]
+            # reduce the total by that * quantity
+            current_total['total_price'] -= normal_price * quantity
+
+            # calculate the discount_price
+            discount_price = normal_price * (1 - self.discount_amount)
+            new_total_price = discount_price * quantity
+
+            # add it together
+            current_total['total_price'] += new_total_price

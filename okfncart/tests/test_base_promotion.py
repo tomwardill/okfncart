@@ -3,7 +3,8 @@ import unittest
 from okfncart.promotions import (
     BasePromotion,
     BuyOneGetOneFreePromotion,
-    BuyTwoGetOneFree
+    BuyTwoGetOneFree,
+    DiscountOneProductWithAnother
 )
 
 
@@ -139,4 +140,90 @@ class BuyTwoGetOneFreePromotion(unittest.TestCase):
         self.assertEqual(
             7,
             fixture['products']['test_btgof_2']
+        )
+
+class DiscountOneProductWithAnotherTest(unittest.TestCase):
+
+    def test_does_nothing_correctly(self):
+
+        promotion = DiscountOneProductWithAnother('1', '2', 30)
+
+        fixture = {
+            'total_price': 2,
+            'products': {
+                '5': 5
+            }
+        }
+        result = fixture.copy()
+
+        promotion.check_promotion(fixture, {})
+
+        self.assertEqual(fixture, result)
+
+    def test_reduce_by_discount_quantity_one(self):
+
+        buy_product = 'buy_product'
+        discount_product = 'discount_product'
+        discount_amount = 0.2
+
+        total_fixture = {
+            'total_price': 2,
+            'products': {
+                buy_product: 1,
+                discount_product: 1
+            }
+        }
+        product_fixture = {
+            buy_product: 1,
+            discount_product: 1
+        }
+
+        promotion = DiscountOneProductWithAnother(
+            buy_product,
+            discount_product,
+            discount_amount
+        )
+
+        promotion.check_promotion(
+            total_fixture,
+            product_fixture
+        )
+
+        self.assertEqual(
+            1.8,
+            total_fixture['total_price']
+        )
+
+    def test_reduce_by_discount_quantity_five(self):
+
+        buy_product = 'buy_product'
+        discount_product = 'discount_product'
+        discount_amount = 0.2
+
+        total_fixture = {
+            'total_price': 30.8,
+            'products': {
+                buy_product: 5,
+                discount_product: 5
+            }
+        }
+        product_fixture = {
+            buy_product: 1.4,
+            discount_product: 1.2
+        }
+
+        promotion = DiscountOneProductWithAnother(
+            buy_product,
+            discount_product,
+            discount_amount
+        )
+
+        promotion.check_promotion(
+            total_fixture,
+            product_fixture
+        )
+
+        self.assertEqual(
+            29.6,
+            total_fixture['total_price']
         )
