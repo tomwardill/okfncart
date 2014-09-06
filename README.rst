@@ -110,3 +110,10 @@ To create a new promotion, add a new class to the __init__.py (or alter the `ign
 
 The implement the promotion by following the procedure above.
 
+Testing
+=======
+
+There are unit tests for most of the implementation. The easiest way to test these is to checkout out the repo and run::
+
+    python setup.py test
+
