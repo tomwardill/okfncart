@@ -35,8 +35,6 @@ class TestCart(unittest.TestCase):
     def test_add_to_cart_with_quantity(self):
         self.cart.AddToCart('test_product_2', quantity=4)
 
-        print self.cart.current_products
-
         self.assertEqual(
             4,
             self.cart.current_products['test_product_2']['quantity']
