@@ -15,8 +15,8 @@ class BasePromotion(object):
         )
 
 class BuyOneGetOneFreePromotion(BasePromotion):
-    """Implementation of a Buy One Get On Free promotion
-    Adds doubles the quantity of `target_object`
+    """Implementation of a Buy One Get One Free promotion
+    Adds double the quantity of `target_object`
 
     Can either pass the target_object at init time,
     or inherit the class and set target_object at class level
