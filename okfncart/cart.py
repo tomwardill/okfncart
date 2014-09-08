@@ -11,7 +11,7 @@ class Cart(object):
         self.product_data = product_data
         self.current_products = {}
 
-    def AddToCart(self, product, quantity=1):
+    def add_to_cart(self, product, quantity=1):
         """Add a product to the cart
 
         :param product: Name of product to add to cart
@@ -27,7 +27,7 @@ class Cart(object):
                 'quantity': quantity
             }
 
-    def CalculateTotal(self, promotions=[]):
+    def calculate_total(self, promotions=[]):
         """Calculate the total price and quantities of the cart
 
         :param promotions: List of promotions that can be applied

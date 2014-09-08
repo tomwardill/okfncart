@@ -9,5 +9,5 @@ class TestPromotionLoader(unittest.TestCase):
         self.loader = PromotionLoader()
 
     def test_load_promotions_empty(self):
-        promotions = self.loader.LoadPromotions()
+        promotions = self.loader.load_promotions()
         self.assertTrue(promotions)

@@ -6,7 +6,7 @@ class PromotionLoader(object):
     default_promotion_directory = os.path.dirname(__file__)
     ignore_files = ['__init__.py', 'promotion_loader.py']
 
-    def LoadPromotions(self, promotion_folder=None):
+    def load_promotions(self, promotion_folder=None):
         """Load the promotions so they can be used in a cart
 
         :param promotion_folder: Folder to search for promotions, defaults to '.'

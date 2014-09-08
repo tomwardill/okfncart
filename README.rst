@@ -12,12 +12,12 @@ Loading Data
 Small sample data is provided, and is loaded by default::
 
     from okfncart.data_handler import DataHandler
-    
+
     handler = DataHandler()
 
-    product_data = handler.LoadProductData()
+    product_data = handler.load_product_data()
     # or provide a path to a different data csv file
-    product_data = handler.LoadProductData('/tmp/new_data.csv')
+    product_data = handler.load_product_data('/tmp/new_data.csv')
 
 Creating a cart
 ~~~~~~~~~~~~~~~
@@ -26,9 +26,9 @@ A cart object can be created with the loaded data::
 
     from okfncart.cart import Cart
     from okfncart.data_handler import DataHandler
-   
+
     handler = DataHandler()
-    product_data = handler.LoadProductData()
+    product_data = handler.load_product_data()
 
     cart = Cart(product_data)
 
@@ -42,16 +42,16 @@ Promotions are stored as python files and loaded via a plugin system (Refer to l
     from okfncart.promotions.promotion_loader import PromotionLoader
 
     handler = DataHandler()
-    product_data = handler.LoadProductData()
+    product_data = handler.load_product_data()
 
     loader = PromotionLoader()
 
     cart = Cart(product_data)
 
     # load from the default directory
-    promotions = loader.LoadPromotions()
+    promotions = loader.load_promotions()
     # load from a different directory
-    promotions = loader.LoadPromotions('/tmp/promotions/')
+    promotions = loader.load_promotions('/tmp/promotions/')
 
 Interacting with the cart
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -63,23 +63,23 @@ The cart has a method for adding to the cart and one for calculating the total. 
     from okfncart.promotions.promotion_loader import PromotionLoader
 
     handler = DataHandler()
-    product_data = handler.LoadProductData()
+    product_data = handler.load_product_data()
 
     loader = PromotionLoader()
 
     cart = Cart(product_data)
 
     # load from the default directory
-    promotions = loader.LoadPromotions()
+    promotions = loader.load_promotions()
 
     # default is quantity=1
-    cart.AddToCart('ice cream', quantity=1)
-    cart.AddToCart('strawberries', quantity=2)
-    cart.AddToCart('mars bar')
-    cart.AddToCart('snickers bar')
+    cart.add_to_cart('ice cream', quantity=1)
+    cart.add_to_cart('strawberries', quantity=2)
+    cart.add_to_cart('mars bar')
+    cart.add_to_cart('snickers bar')
 
     # promotions parameter is optional here
-    total = cart.CalculateTotal(
+    total = cart.calculate_total(
         promotions=promotions
     )
 
@@ -105,7 +105,7 @@ To create a new promotion, add a new class to the __init__.py (or alter the `ign
 
     class BuyOneGetOneFreePromotion(BasePromotion):
         target_object = None
-        
+
         def check_promotion(self, current_total, product_data):
             if self.target_object in current_total['products']:
                 current_quantity = current_total['products'][self.target_object]

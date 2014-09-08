@@ -5,7 +5,7 @@ class DataHandler(object):
 
     default_target_file = './data.csv'
 
-    def LoadProductData(self, target_file=None):
+    def load_product_data(self, target_file=None):
         """Load the product data from a csv file.
         Will use a default file location of './data'
         if none specified

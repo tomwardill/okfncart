@@ -11,10 +11,10 @@ class TestIntegration(unittest.TestCase):
         self.handler = DataHandler()
         self.loader = PromotionLoader()
 
-        product_data = self.handler.LoadProductData()
+        product_data = self.handler.load_product_data()
         self.cart = Cart(product_data)
 
-        self.promotions = self.loader.LoadPromotions()
+        self.promotions = self.loader.load_promotions()
 
     def test_full_integration_without_promotions(self):
 
@@ -27,11 +27,11 @@ class TestIntegration(unittest.TestCase):
             'total_price': 7.19
         }
 
-        self.cart.AddToCart('ice cream')
-        self.cart.AddToCart('mars bar', quantity=2)
-        self.cart.AddToCart('strawberries')
+        self.cart.add_to_cart('ice cream')
+        self.cart.add_to_cart('mars bar', quantity=2)
+        self.cart.add_to_cart('strawberries')
 
-        total = self.cart.CalculateTotal()
+        total = self.cart.calculate_total()
         self.assertEqual(
             expected_total,
             total
@@ -49,12 +49,12 @@ class TestIntegration(unittest.TestCase):
             'total_price': 8.9
         }
 
-        self.cart.AddToCart('ice cream', quantity=1)
-        self.cart.AddToCart('strawberries', quantity=2)
-        self.cart.AddToCart('mars bar')
-        self.cart.AddToCart('snickers bar')
+        self.cart.add_to_cart('ice cream', quantity=1)
+        self.cart.add_to_cart('strawberries', quantity=2)
+        self.cart.add_to_cart('mars bar')
+        self.cart.add_to_cart('snickers bar')
 
-        total = self.cart.CalculateTotal(
+        total = self.cart.calculate_total(
             promotions=self.promotions
         )
 

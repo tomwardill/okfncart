@@ -8,7 +8,7 @@ class TestDataHandler(unittest.TestCase):
         self.handler = DataHandler()
 
     def test_load_data(self):
-        product_data = self.handler.LoadProductData()
+        product_data = self.handler.load_product_data()
 
         # check we've loaded the expected amount of data
         self.assertEqual(
@@ -24,4 +24,4 @@ class TestDataHandler(unittest.TestCase):
 
     def test_load_data_fails(self):
         with self.assertRaises(IOError):
-            self.handler.LoadProductData('./thisdoesnotexist.csv')
+            self.handler.load_product_data('./thisdoesnotexist.csv')
