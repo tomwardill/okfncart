@@ -44,12 +44,14 @@ Promotions are stored as python files and loaded via a plugin system (Refer to l
     handler = DataHandler()
     product_data = handler.LoadProductData()
 
+    loader = PromotionLoader()
+
     cart = Cart(product_data)
 
     # load from the default directory
-    promotions = self.loader.LoadPromotions()
+    promotions = loader.LoadPromotions()
     # load from a different directory
-    promotions = self.loader.LoadPromotions('/tmp/promotions/')
+    promotions = loader.LoadPromotions('/tmp/promotions/')
 
 Interacting with the cart
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -63,10 +65,12 @@ The cart has a method for adding to the cart and one for calculating the total. 
     handler = DataHandler()
     product_data = handler.LoadProductData()
 
+    loader = PromotionLoader()
+
     cart = Cart(product_data)
 
     # load from the default directory
-    promotions = self.loader.LoadPromotions()
+    promotions = loader.LoadPromotions()
 
     # default is quantity=1
     cart.AddToCart('ice cream', quantity=1)
@@ -75,7 +79,7 @@ The cart has a method for adding to the cart and one for calculating the total. 
     cart.AddToCart('snickers bar')
 
     # promotions parameter is optional here
-    total = self.cart.CalculateTotal(
+    total = cart.CalculateTotal(
         promotions=promotions
     )
 
